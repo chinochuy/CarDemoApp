@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarDemoApp.Views.MainPage"
+             Title="{Binding Title}">
+
+    <Grid Margin="10">
+        <Grid.Resources>
+            <!-- Implicit style -->
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackLayout>
+            <Entry Text="{Binding Brand}" Placeholder="Brand"/>
+            <Entry Text="{Binding Line}" Placeholder="Model"/>
+            <Entry Text="{Binding Year}" Placeholder="Year"/>
+            <Button Text="Add" TextColor="White" Command="{Binding AddNewCarCommand}" BackgroundColor="DarkSlateBlue"/>
+
+            <CollectionView Grid.Row="1"
+                            ItemsSource="{Binding Cars}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="1" VerticalItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.Header>
+                    <Frame BackgroundColor="CadetBlue" CornerRadius="5" Padding="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Text="Brand" FontAttributes="Bold"/>
+                            <Label Grid.Column="1" Text="Line" FontAttributes="Bold"/>
+                            <Label Grid.Column="2" Text="Year" FontAttributes="Bold"/>
+                        </Grid>
+                    </Frame>
+                </CollectionView.Header>
+
+                <CollectionView.Footer>
+                    <Frame BackgroundColor="CadetBlue" CornerRadius="5" Padding="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label Text="{Binding TotalItems, StringFormat='Total Items: {0}'}" FontAttributes="Bold"/>
+                        </Grid>
+                    </Frame>
+                </CollectionView.Footer>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="LightGray" CornerRadius="5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <Label Text="{Binding Brand}"/>
+                                <Label Grid.Column="1" Text="{Binding Line}"/>
+                                <Label Grid.Column="2" Text="{Binding Year}"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </Grid>
+</ContentPage>
